@@ -7,8 +7,14 @@ controller.left.onEvent(ControllerButtonEvent.Pressed, function () {
 controller.right.onEvent(ControllerButtonEvent.Pressed, function () {
     mySprite.x = 130
 })
+sprites.onOverlap(SpriteKind.Player, SpriteKind.Projectile, function (sprite, otherSprite) {
+    otherSprite.destroy()
+})
 controller.down.onEvent(ControllerButtonEvent.Pressed, function () {
     mySprite.x = 100
+})
+scene.onHitWall(SpriteKind.Projectile, function (sprite, location) {
+    sprite.destroy()
 })
 let projectile: Sprite = null
 let mySprite: Sprite = null
@@ -154,7 +160,49 @@ scene.setBackgroundImage(img`
     bbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbb
     `)
 effects.bubbles.startScreenEffect()
-game.onUpdateInterval(500, function () {
+game.onUpdateInterval(randint(2000, 7000), function () {
+    projectile = sprites.createProjectileFromSide(img`
+        f f f f f f f f f f f f f f f f 
+        f 7 7 7 7 7 7 7 7 7 7 7 7 7 7 f 
+        f 7 7 7 7 7 7 1 1 7 7 7 7 7 7 f 
+        f 7 7 7 7 7 1 1 1 1 7 7 7 7 7 f 
+        f 7 7 7 7 1 1 1 1 1 1 7 7 7 7 f 
+        f 7 7 7 1 1 1 1 1 1 1 1 7 7 7 f 
+        f 7 7 7 7 7 7 1 1 7 7 7 7 7 7 f 
+        f 7 7 7 7 7 7 1 1 7 7 7 7 7 7 f 
+        f 7 7 7 7 7 7 1 1 7 7 7 7 7 7 f 
+        f 7 7 7 7 7 7 1 1 7 7 7 7 7 7 f 
+        f 7 7 7 7 7 7 1 1 7 7 7 7 7 7 f 
+        f 7 7 7 7 7 7 1 1 7 7 7 7 7 7 f 
+        f 7 7 7 7 7 7 1 1 7 7 7 7 7 7 f 
+        f 7 7 7 7 7 7 1 1 7 7 7 7 7 7 f 
+        f 7 7 7 7 7 7 7 7 7 7 7 7 7 7 f 
+        f f f f f f f f f f f f f f f f 
+        `, 0, 60)
+    projectile.x = 60
+})
+game.onUpdateInterval(randint(500, 7000), function () {
+    projectile = sprites.createProjectileFromSide(img`
+        f f f f f f f f f f f f f f f f 
+        f 7 7 7 7 7 7 7 7 7 7 7 7 7 7 f 
+        f 7 7 7 7 7 7 7 7 7 7 7 7 7 7 f 
+        f 7 7 7 7 7 7 7 7 7 7 7 7 7 7 f 
+        f 7 7 7 7 1 7 7 7 7 7 7 7 7 7 f 
+        f 7 7 7 1 1 7 7 7 7 7 7 7 7 7 f 
+        f 7 7 1 1 1 7 7 7 7 7 7 7 7 7 f 
+        f 7 1 1 1 1 1 1 1 1 1 1 1 1 7 f 
+        f 7 1 1 1 1 1 1 1 1 1 1 1 1 7 f 
+        f 7 7 1 1 1 7 7 7 7 7 7 7 7 7 f 
+        f 7 7 7 1 1 7 7 7 7 7 7 7 7 7 f 
+        f 7 7 7 7 1 7 7 7 7 7 7 7 7 7 f 
+        f 7 7 7 7 7 7 7 7 7 7 7 7 7 7 f 
+        f 7 7 7 7 7 7 7 7 7 7 7 7 7 7 f 
+        f 7 7 7 7 7 7 7 7 7 7 7 7 7 7 f 
+        f f f f f f f f f f f f f f f f 
+        `, 0, 60)
+    projectile.x = 30
+})
+game.onUpdateInterval(randint(500, 7000), function () {
     projectile = sprites.createProjectileFromSide(img`
         f f f f f f f f f f f f f f f f 
         f 7 7 7 7 7 7 7 7 7 7 7 7 7 7 f 
@@ -172,6 +220,27 @@ game.onUpdateInterval(500, function () {
         f 7 7 7 7 7 7 1 1 7 7 7 7 7 7 f 
         f 7 7 7 7 7 7 7 7 7 7 7 7 7 7 f 
         f f f f f f f f f f f f f f f f 
-        `, 0, 100)
+        `, 0, 60)
     projectile.x = 100
+})
+game.onUpdateInterval(randint(500, 7000), function () {
+    projectile = sprites.createProjectileFromSide(img`
+        f f f f f f f f f f f f f f f f 
+        f 7 7 7 7 7 7 7 7 7 7 7 7 7 7 f 
+        f 7 7 7 7 7 7 7 7 7 7 7 7 7 7 f 
+        f 7 7 7 7 7 7 7 7 7 7 7 7 7 7 f 
+        f 7 7 7 7 7 7 7 7 7 1 7 7 7 7 f 
+        f 7 7 7 7 7 7 7 7 7 1 1 7 7 7 f 
+        f 7 7 7 7 7 7 7 7 7 1 1 1 7 7 f 
+        f 7 1 1 1 1 1 1 1 1 1 1 1 1 7 f 
+        f 7 1 1 1 1 1 1 1 1 1 1 1 1 7 f 
+        f 7 7 7 7 7 7 7 7 7 1 1 1 7 7 f 
+        f 7 7 7 7 7 7 7 7 7 1 1 7 7 7 f 
+        f 7 7 7 7 7 7 7 7 7 1 7 7 7 7 f 
+        f 7 7 7 7 7 7 7 7 7 7 7 7 7 7 f 
+        f 7 7 7 7 7 7 7 7 7 7 7 7 7 7 f 
+        f 7 7 7 7 7 7 7 7 7 7 7 7 7 7 f 
+        f f f f f f f f f f f f f f f f 
+        `, 0, 60)
+    projectile.x = 130
 })
