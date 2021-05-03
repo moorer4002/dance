@@ -1,6 +1,10 @@
 controller.up.onEvent(ControllerButtonEvent.Pressed, function () {
     mySprite.x = 60
 })
+scene.onOverlapTile(SpriteKind.Projectile, assets.tile`myTile`, function (sprite, location) {
+    sprite.destroy()
+    info.changeLifeBy(-1)
+})
 controller.left.onEvent(ControllerButtonEvent.Pressed, function () {
     mySprite.x = 30
 })
@@ -9,34 +13,14 @@ controller.right.onEvent(ControllerButtonEvent.Pressed, function () {
 })
 sprites.onOverlap(SpriteKind.Player, SpriteKind.Projectile, function (sprite, otherSprite) {
     otherSprite.destroy()
+    info.changeScoreBy(1)
 })
 controller.down.onEvent(ControllerButtonEvent.Pressed, function () {
     mySprite.x = 100
 })
-scene.onHitWall(SpriteKind.Projectile, function (sprite, location) {
-    sprite.destroy()
-})
 let projectile: Sprite = null
 let mySprite: Sprite = null
-mySprite = sprites.create(img`
-    . . . . . . . . . . . . . . . . 
-    . . . . . . f f f . . . . . . . 
-    . . . . . . f f f . . . . . . . 
-    . . . . . . f f f . . . . . . . 
-    . . . . . . . f . . . . . . . . 
-    . . . . . . . f . f f . . . . . 
-    . . . . . f f f f f . . . . . . 
-    . . . . f f . f . . . . . . . . 
-    . . . . . . . f . . . . . . . . 
-    . . . . . . f . f . . . . . . . 
-    . . . . . f f . f . . . . . . . 
-    . . . . . f . . f f . . . . . . 
-    . . . . . . . . . . . . . . . . 
-    . . . . . . . . . . . . . . . . 
-    . . . . . . . . . . . . . . . . 
-    . . . . . . . . . . . . . . . . 
-    `, SpriteKind.Player)
-mySprite.setPosition(76, 113)
+info.setLife(3)
 scene.setBackgroundImage(img`
     33333333333333333333333fffffffff6666666666666666666666666666666666666fffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffff
     333333333333333333333333fffffff666666666666666666666666666666666666666ffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffff
@@ -160,6 +144,26 @@ scene.setBackgroundImage(img`
     bbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbb
     `)
 effects.bubbles.startScreenEffect()
+tiles.setTilemap(tilemap`level1`)
+mySprite = sprites.create(img`
+    . . . . . . . . . . . . . . . . 
+    . . . . . . f f f . . . . . . . 
+    . . . . . . f f f . . . . . . . 
+    . . . . . . f f f . . . . . . . 
+    . . . . . . . f . . . . . . . . 
+    . . . . . . . f . f f . . . . . 
+    . . . . . f f f f f . . . . . . 
+    . . . . f f . f . . . . . . . . 
+    . . . . . . . f . . . . . . . . 
+    . . . . . . f . f . . . . . . . 
+    . . . . . f f . f . . . . . . . 
+    . . . . . f . . f f . . . . . . 
+    . . . . . . . . . . . . . . . . 
+    . . . . . . . . . . . . . . . . 
+    . . . . . . . . . . . . . . . . 
+    . . . . . . . . . . . . . . . . 
+    `, SpriteKind.Player)
+mySprite.setPosition(76, 113)
 game.onUpdateInterval(randint(2000, 7000), function () {
     projectile = sprites.createProjectileFromSide(img`
         f f f f f f f f f f f f f f f f 
